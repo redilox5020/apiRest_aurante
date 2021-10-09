@@ -139,4 +139,4 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Modelo de Autenticacion y registro de Usuarios
-AUTH_USER_MODEL = 'profiles_api.UserProfile'
+AUTH_USER_MODEL = 'appRestaurante.User'
