@@ -8,7 +8,7 @@ from .models.user    import UserProfile
 from .models.account import Account
 from .models.address import Address
 from .models.products import Product
-admin.site.register(User)
+admin.site.register(UserProfile)
 admin.site.register(Account)
 admin.site.register(Address)
 admin.site.register(Product)
