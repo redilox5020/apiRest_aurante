@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'appRestaurante',
 ]
 
 MIDDLEWARE = [
@@ -139,4 +142,4 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Modelo de Autenticacion y registro de Usuarios
-AUTH_USER_MODEL = 'appRestaurante.User'
+AUTH_USER_MODEL = 'appRestaurante.UserProfile'
