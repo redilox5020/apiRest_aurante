@@ -6,7 +6,7 @@ from .products import Product
 class Account(models.Model):
     id                = models.AutoField(primary_key=True)
     user              = models.ForeignKey(User, related_name='account', on_delete=models.CASCADE)
-    shopping          = models.ManyToManyField(Product) # relacion muchos a muchos
+    #shopping          = models.ManyToManyField(Product) # relacion muchos a muchos
     favorite          = models.ManyToManyField(Product)
     pointsPerPurchase = models.IntegerField(default=0)
     address           = models.ForeignKey(Address, on_delete= models.SET_NULL, null=True)
