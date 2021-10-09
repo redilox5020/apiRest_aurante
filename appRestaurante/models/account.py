@@ -1,5 +1,5 @@
 from django.db import models
-from .user     import User
+from .user     import UserProfile
 from .address  import Address
 from .products import Product
 # id, nombre, favoritos, compras, puntos por compra, domicilio
