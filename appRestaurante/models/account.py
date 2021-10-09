@@ -2,6 +2,10 @@ from django.db import models
 from .user     import UserProfile
 from .address  import Address
 from .products import Product
+
+class Favorite(models.Model):
+    products_id = models.ManyToManyField(Product) 
+
 # id, nombre, favoritos, compras, puntos por compra, domicilio
 class Account(models.Model):
     id                = models.AutoField(primary_key=True)
@@ -17,5 +21,4 @@ class AccountShopping(models.Model):
     products_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
-class Favorite(models.Model):
-    products_id = models.ManyToManyField(Product) 
+
