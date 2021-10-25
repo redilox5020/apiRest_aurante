@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser #modelo basico de Usuarios, Login con usuario
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
-
+from django.contrib.auth.hashers import make_password 
 """ Dado que creo un modelos de usuario Personalizado, debo que especificar como procesar los usuarios """
 
 class UserProfileManager(BaseUserManager):
@@ -38,11 +38,12 @@ class UserProfileManager(BaseUserManager):
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Modelo Base de Datos para Usuarios en el Sistema"""
-    email = models.EmailField(max_length=255, unique=True)
-    #password = models.CharField('Password', max_length = 256)
-    name = models.CharField(max_length=255)
+    id        = models.BigAutoField(primary_key=True)
+    email     = models.EmailField(max_length=255, unique=True)
+    name      = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False) # Si son Miembros del equipo
+    is_staff  = models.BooleanField(default=False) # Si son Miembros del equipo
+    
     
     objects = UserProfileManager()
 

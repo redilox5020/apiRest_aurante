@@ -1,7 +1,7 @@
 from django.db import models
 class Address(models.Model):
     calle = models.CharField(max_length=255)
-    no_calle = models.IntegerField()
+    no_calle = models.CharField(max_length=255)
     barrio = models.CharField(max_length=255)
 
     def __str__(self):

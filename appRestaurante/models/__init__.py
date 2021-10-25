@@ -1,4 +1,4 @@
-from .account import Account
-from .user    import User
+from .account import Account, Orders
+from .user    import UserProfile
 from .address import Address
-from .products import Product
+from .products import Recipe, Tag, Ingredient, Images

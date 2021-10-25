@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
-
+from datetime import timedelta 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,7 +37,36 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    #rest_framework.authtoken',
+    'appRestaurante',
 ]
+
+# configuracion de como se deben generar los token cuando se este haciendo la autenticacion
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME'   : timedelta(minutes=5), # Tiempo de vida del token de acceso
+    'REFRESH_TOKEN_LIFETIME'  : timedelta(days=1),    # Tiempo de vida del Refresh token
+    'ROTATE_REFRESH_TOKENS'   : False,      # Rotacion de los token refresh
+    'BLACKLIST_AFTER_ROTATION': True,       # que despues de que se hagan el refresh ese token no se vuelva a usar
+    'UPDATE_LAST_LOGIN'       : False,
+    'ALGORITHM'               : 'HS256',    # Se define el algoritmo de encriptacion de los token
+    'USER_ID_FIELD'           : 'id',
+    'USER_ID_CLAIM'           : 'user_id',
+}
+
+# Para que Django Rest-Framework pueda trabajar, le estamos dando permisos 
+# y estamos verificando como se va a hacer autenticacion 
+REST_FRAMEWORK = {
+    # Permiso de Acceso 
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',# se da control total sobre las clases
+    ),
+    # Autenticacion de Acceso a esas Clases
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',# Mecanismo de Autenticacion por defecto
+    )
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,7 +116,7 @@ WSGI_APPLICATION = 'apiRestaurante.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'api_rest',
+        'NAME': 'prueba3',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
@@ -133,10 +162,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# con esto tenemos acceso a las imagenes
+MEDIA_URL = '/media/' 
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media_root/')
+STATIC_ROOT = '/static_root/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Modelo de Autenticacion y registro de Usuarios
-AUTH_USER_MODEL = 'profiles_api.UserProfile'
+AUTH_USER_MODEL = 'appRestaurante.UserProfile'
