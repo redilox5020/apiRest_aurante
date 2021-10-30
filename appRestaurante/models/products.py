@@ -28,6 +28,8 @@ class Images(models.Model):
     """ Imagenes del la Preparacion """
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     image  = models.ImageField(null=True, upload_to=recipe_image_file_path)
+    def __str__(self) -> str:
+        return f'Imagen Receta {self.recipe.title}'
 
 class Tag(models.Model):
     """ Modelo del Tag para la receta """

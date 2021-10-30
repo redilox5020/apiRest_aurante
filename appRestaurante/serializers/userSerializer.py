@@ -1,7 +1,7 @@
 from rest_framework                        import serializers
 from appRestaurante.models.address import Address
 from appRestaurante.models.user                   import UserProfile      # Traemos el modelo de Usuario
-from appRestaurante.models.account                import Account
+from appRestaurante.models.account                import Account, Orders
 from appRestaurante.serializers.accountSerializer import AccountSerializer
 from appRestaurante.serializers.addressSerializer import AddressSerializer  # Tambien Cuentas 
 
@@ -58,14 +58,22 @@ class UserProfileSerializer(serializers.ModelSerializer):
         user = UserProfile.objects.get(id=obj.id)          # Se obtiene el Usuario a partir del id
         account = Account.objects.get(user=obj.id)  # Obtenemos la cuenta a partir del id de usuario
         address = Address.objects.get(id=obj.id)
+        
+        favorite = account.favorite.all()
+        orders = Orders.objects.get(account=obj.id)
         return {
             'id': user.id,
             'name': user.name,
             'email': user.email,
             'account': {
                 #'id': account.id,
-                # 'orders': account.shopping,
-                # 'favorite': account.favorite,
+                'orders': {
+                    'shopping': [s.__str__() for s in orders.shopping.all()],
+                    'amount': orders.amount,
+                    'date'  : orders.date,
+                    'status': orders.status,
+                },
+                'favorite': [p.__str__() for p in favorite],
                 'pointsPerPurchase' : account.pointsPerPurchase,
                 'address': address.__str__(),
                 'isActive': account.isActive

@@ -15,6 +15,9 @@ class Account(models.Model):
     address           = models.ForeignKey(Address, on_delete= models.SET_NULL, null=True)
     isActive          = models.BooleanField(default=True)
 
+    def __str__(self) -> str:
+        return f'Cuenta del Usuario: {self.user.email}'
+
 class Orders(models.Model):
     """ Pedidos por cuenta """
     STATUS_ORDER = (
@@ -22,11 +25,15 @@ class Orders(models.Model):
         ('C', 'En Camino'),
         ('E', 'Entregado'),
     )
+    id = models.AutoField()
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     shopping= models.ManyToManyField('Recipe', through='Detail_Product')
     amount  = models.FloatField(default=0) # monto
     date    = models.DateField(auto_now_add=True)
     status  = models.CharField(max_length=14, choices=STATUS_ORDER)
+
+    def __str__(self) -> str:
+        return f'Orden {self.id}, {self.account.__str__()}'
 
 
 class Detail_Product(models.Model):
